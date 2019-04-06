@@ -68,6 +68,11 @@ server {
         proxy_pass http://websdr-wb-chat/socket.io;
     }
 
+    location /wb/chat/log {
+        alias /srv/chat/logs/eshail-wb/;
+        autoindex on;
+    }
+
     location /a.gif {
         empty_gif;
         expires epoch;
