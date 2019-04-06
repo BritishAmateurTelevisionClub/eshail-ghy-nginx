@@ -76,4 +76,10 @@ server {
         access_log /var/log/nginx/a.log analytics;
         add_header 'Access-Control-Allow-Origin'  '*' always;
     }
+
+    location = /ngx_stats {
+        allow 127.0.0.1;
+        deny all;
+        stub_status;
+    }
 }
