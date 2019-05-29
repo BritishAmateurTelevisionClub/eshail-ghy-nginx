@@ -8,7 +8,7 @@ upstream websdr-wb-chat {
    server 127.0.0.1:3000;
 }
 server {
-    listen       80;
+    listen 80 default_server;
 
     include conf.d/includes/https-redirect;
 
@@ -35,11 +35,18 @@ server {
     root   /srv/eshail.batc.org.uk/;
     index  index.html;
 
-    location = /nb {
-        return 302 /nb/;
+    location / {
+        expires 1d;
+    }
+    location /img/ {
+        expires 14d;
+    }
+    location /lib/ {
+        expires 14d;
     }
 
     location /nb/tmp/ {
+        expires epoch;
         proxy_http_version 1.1;
         proxy_set_header Connection "";
         proxy_pass http://websdr-nb/tmp/;
@@ -76,6 +83,7 @@ server {
 
     location /wb/chat/log {
         alias /srv/chat/logs/eshail-wb/;
+        expires epoch;
         autoindex on;
     }
 
