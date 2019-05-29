@@ -13,6 +13,12 @@ server {
     include conf.d/includes/https-redirect;
 
     include conf.d/includes/letsencrypt-webroot;
+
+    location = /ngx_stats {
+        allow 127.0.0.1;
+        deny all;
+        stub_status;
+    }
 }
 server {
     listen 443 ssl http2;
@@ -80,11 +86,5 @@ server {
         error_log off;
         access_log /var/log/nginx/a.log analytics;
         add_header 'Access-Control-Allow-Origin'  '*' always;
-    }
-
-    location = /ngx_stats {
-        allow 127.0.0.1;
-        deny all;
-        stub_status;
     }
 }
